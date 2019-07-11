@@ -18,6 +18,8 @@
   "homepage": "https://github.com/chmenegatti/video-maker#readme",
   "dependencies": {
     "algorithmia": "^0.3.10",
-    "readline-sync": "^1.4.9"
+    "package.json": "^2.0.1",
+    "readline-sync": "^1.4.9",
+    "sbd": "^1.0.15"
   }
 }
