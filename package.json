@@ -18,8 +18,10 @@
   "homepage": "https://github.com/chmenegatti/video-maker#readme",
   "dependencies": {
     "algorithmia": "^0.3.10",
+    "ibm-watson": "^4.2.2",
     "package.json": "^2.0.1",
     "readline-sync": "^1.4.9",
-    "sbd": "^1.0.15"
+    "sbd": "^1.0.15",
+    "watson-developer-cloud": "^4.0.1"
   }
 }
