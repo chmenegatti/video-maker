@@ -1,30 +1,17 @@
-const readline = require('readline-sync')
-const robots = { 
-    text: require('./robots/text.js')
+
+const robots = {
+    input: require('./robots/input.js'), 
+    text: require('./robots/text.js'),
+    state: require('./robots/state.js')
 }
 
 async function start() {
-    const content = {}
+    
+    robots.input()
+    await robots.text()
 
-    content.searchTerm = askAndReturnSearchTerm ()
-    content.prefix = askAndReturnPrefix()
-
-    await robots.text(content)
-
-    function askAndReturnSearchTerm () {
-        return readline.question('Type a Wiipedia search term: ')
-    }
-
-    function askAndReturnPrefix() {
-        const prefixes = ['Who is', 'What is', 'The History of']
-        const selectedPrefixIndex = readline.keyInSelect(prefixes, 'Select an option: ')
-        const selectedPrefixText = prefixes[selectedPrefixIndex]
-        
-        return selectedPrefixText
-    }
-
-    console.log(content)
-
+    const content = robots.state.load()
+    console.dir(content, { depth: null })
 }
 
 start()
