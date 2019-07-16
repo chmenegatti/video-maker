@@ -1,3 +1,4 @@
+const imageDownloader = require('image-downloader')
 const google = require('googleapis').google
 const customSearch = google.customsearch('v1')
 const state = require('./state.js')
@@ -9,6 +10,7 @@ async function robot() {
     const content = state.load()
 
     await fetchImagesOfAllSentences(content)
+    await downloadAllImages(content)
 
     state.save(content)
     
@@ -34,8 +36,39 @@ async function robot() {
             return item.link 
         })
 
-        return imagesUrl
+        return imagesUrl    
     }
-}
+ 
+    async function downloadAllImages(content) {
+        content.downloadedImages = []
+        content.sentences[1].images[0] = 'https://amazingribs.com/files/styles/content_body_600px/public/heroimage/candied-bacon.jpg?itok=2J7HpWKZ'
+        for (let sentenceIndex = 0; sentenceIndex < content.sentences.length; sentenceIndex++) {
+            const images = content.sentences[sentenceIndex].images
+            for (let imageIndex = 0; imageIndex < images.length; imageIndex++) {
+                const imageUrl = images[imageIndex]
+ 
+                try {
+                    if(content.downloadedImages.includes(imageUrl)) {
+                        throw new Error('Imagem já foi baixada!')
+                    }
+                    await downloadAndSave(imageUrl, `${sentenceIndex}-original.png`)
+                    content.downloadedImages.push(imageUrl)
+                    console.log(`> [${sentenceIndex}] [${imageIndex}] Baixou imagem com sucesso: ${imageUrl}`)
+                    break
+                } catch (error) {
+                    console.log(`>  [${sentenceIndex}] [${imageIndex}] Erro ao baixar imagem (${imageUrl}): ${error}`)
+
+                }
+            }
+        }
+    }
+
+    async function downloadAndSave(url, fileName) {
+        return imageDownloader.image({
+            url, url,
+            dest: `./content/${fileName}`
+        })
+    }
+}   
 
 module.exports = robot
