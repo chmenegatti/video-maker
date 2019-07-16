@@ -41,7 +41,6 @@ async function robot() {
  
     async function downloadAllImages(content) {
         content.downloadedImages = []
-        content.sentences[1].images[0] = 'https://amazingribs.com/files/styles/content_body_600px/public/heroimage/candied-bacon.jpg?itok=2J7HpWKZ'
         for (let sentenceIndex = 0; sentenceIndex < content.sentences.length; sentenceIndex++) {
             const images = content.sentences[sentenceIndex].images
             for (let imageIndex = 0; imageIndex < images.length; imageIndex++) {
