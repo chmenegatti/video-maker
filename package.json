@@ -20,6 +20,7 @@
     "algorithmia": "^0.3.10",
     "googleapis": "^41.0.0",
     "ibm-watson": "^4.2.2",
+    "image-downloader": "^3.4.2",
     "package.json": "^2.0.1",
     "readline-sync": "^1.4.9",
     "sbd": "^1.0.15",
