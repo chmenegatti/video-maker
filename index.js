@@ -15,7 +15,7 @@ async function start() {
     await robots.video()
 
 
-    const content = robots.state.load()
+    //const content = robots.state.load()
     //console.dir(content, { depth: null })
 }
 
