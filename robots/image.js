@@ -15,7 +15,7 @@ async function robot() {
     await convertAllImages(content)
     await createAllSentencesImages(content)
     await createYouTubeThumbnail()
-    
+
     state.save(content)
     
     async function fetchImagesOfAllSentences(content) {
@@ -92,13 +92,13 @@ async function robot() {
                     .out('-clone')
                     .out('0')
                     .out('-background', 'white')
-                    .out('-blur', '0x9')
+                    .out('-blur', '0x5')
                     .out('-resize', `${width}x${height}`)
                 .out(')')
                 .out('(')
                     .out('-clone')
                     .out('0')
-                    .out('-background', 'white')
+                    .out('-background', 'transparent')
                     .out('-resize', `${width}x${height}`)
                 .out(')')
                 .out('-delete', '0')
@@ -110,7 +110,7 @@ async function robot() {
                     if (error) {
                         return reject(error)
                     }
-                    console.log(`> Image converted: ${inputFile}`)
+                    console.log(`>[video-robot] Image converted: ${inputFile} -> ${outputFile}`)
                     resolve()
                 })
         })
