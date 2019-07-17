@@ -10,12 +10,13 @@ const googleSearchCredentials = require('../credentials/google-search.json')
 async function robot() {
     const content = state.load()
 
-    //await fetchImagesOfAllSentences(content)
-    //await downloadAllImages(content)
-    //await convertAllImages(content)
+    await fetchImagesOfAllSentences(content)
+    await downloadAllImages(content)
+    await convertAllImages(content)
     await createAllSentencesImages(content)
-
-    //  state.save(content)
+    await createYouTubeThumbnail()
+    
+    state.save(content)
     
     async function fetchImagesOfAllSentences(content) {
         for (const sentence of content.sentences) {
@@ -170,6 +171,20 @@ async function robot() {
                     }
         
                     console.log(`> [video-robot] Sentence created: ${outputFile}`)
+                    resolve()
+                })
+        })
+    }
+
+    async function createYouTubeThumbnail() {
+        return new Promise ((resolve, reject) => {
+            gm()
+                .in('./content/0-converted.png')
+                .write('./content/youtub-thumbnail.jpg', (error) => {
+                    if (error) {
+                        return reject(error)
+                    } 
+                    console.log('> Creating YouTube thumbnail')
                     resolve()
                 })
         })
